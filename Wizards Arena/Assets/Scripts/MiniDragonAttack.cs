@@ -17,11 +17,15 @@ public class MiniDragonAttack : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (dragon.minions.Length != 0)
+        /*if (dragon.minions.Length != 0)
+        {
+            dragon.gameObject.transform.rotation = Quaternion.LookRotation(dragon.minionFollow.transform.position - dragon.transform.position);
+        }*/
+        if (dragon.distanceToMinion <= 3)
         {
             dragon.gameObject.transform.rotation = Quaternion.LookRotation(dragon.minionFollow.transform.position - dragon.transform.position);
         }
-       
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

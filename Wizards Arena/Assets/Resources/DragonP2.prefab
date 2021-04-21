@@ -477,7 +477,7 @@ GameObject:
   - component: {fileID: 6561487775596385703}
   - component: {fileID: 2185198399619523521}
   - component: {fileID: 1543169755}
-  - component: {fileID: 851651791}
+  - component: {fileID: 1641854549}
   m_Layer: 0
   m_Name: DragonP2
   m_TagString: DragonP2
@@ -565,6 +565,7 @@ MonoBehaviour:
   currentTarget: 0
   navMeshAgent: {fileID: 4596487506692003787}
   minionFollow: {fileID: 0}
+  distanceToMinion: 0
 --- !u!114 &6561487775596385703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,8 +619,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   healthDragon: {fileID: 3926351221241646104}
---- !u!65 &851651791
-BoxCollider:
+--- !u!136 &1641854549
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -628,9 +629,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.98, y: 3.14, z: 2.94}
-  m_Center: {x: 0, y: 2.04, z: 0}
+  m_Radius: 1.91
+  m_Height: 3.9
+  m_Direction: 1
+  m_Center: {x: 0, y: 2.11, z: -0.18}
 --- !u!1 &3853818627788063314
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,9 @@ TagManager:
   - Player2
   - TurretP1
   - TurretP2
+  - exp
+  - PlayerExp1
+  - PlayerExp2
   layers:
   - Default
   - TransparentFX

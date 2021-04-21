@@ -16,7 +16,7 @@ public class MiniDragonMain : MonoBehaviourPunCallbacks
 
     private Animator animator;
     private float distanceToPlayer;
-    private float distanceToMinion;
+    public float distanceToMinion;
 
 
 
@@ -59,6 +59,10 @@ public class MiniDragonMain : MonoBehaviourPunCallbacks
             distanceToMinion = (transform.position - minionFollow.transform.position).magnitude;
             animator.SetFloat("distanceToMinion", distanceToMinion);
         }
+        else
+        {
+            animator.SetFloat("distanceToMinion",100);
+        }
         
 
 
@@ -87,6 +91,13 @@ public class MiniDragonMain : MonoBehaviourPunCallbacks
         }
 
         return bestTarget;
+    }
+
+
+    public void enemyDamage()
+    {
+        minionFollow.GetComponent<MinionHealth>().TakeDamage(30);
+       
     }
 
     

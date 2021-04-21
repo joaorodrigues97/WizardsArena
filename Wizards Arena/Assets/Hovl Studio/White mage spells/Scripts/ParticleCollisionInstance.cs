@@ -11,11 +11,8 @@ public class ParticleCollisionInstance : MonoBehaviour
     public bool UseWorldSpacePosition;
     public bool UseFirePointRotation;
     private ParticleSystem part;
-    private List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
-    private ParticleSystem ps;
     private MinionHealth minionHealth;
     private TowerHeath towerHeath;
-    private PlayerAttack1 playerAttack1;
     
 
     void Start()
@@ -26,17 +23,28 @@ public class ParticleCollisionInstance : MonoBehaviour
     void OnParticleCollision(GameObject other)
     {
         Debug.Log("Entrei no collision: "+other);
-        if(other.CompareTag("DragonP1") || other.CompareTag("DragonP2"))
+        if(other.CompareTag("DragonP1") && part.transform.parent.parent.CompareTag("Player2"))
+        {
+            minionHealth = other.GetComponent<MinionHealth>();
+            minionHealth.TakeDamage(30);
+        }else if (other.CompareTag("DragonP2") && part.transform.parent.parent.CompareTag("Player1"))
         {
             minionHealth = other.GetComponent<MinionHealth>();
             minionHealth.TakeDamage(30);
         }
-        if (other.CompareTag("TurretP1") || other.CompareTag("TurretP2"))
+
+        if (other.CompareTag("TurretP1") && part.transform.parent.parent.CompareTag("Player2"))
+        {
+            towerHeath = other.GetComponent<TowerHeath>();
+            towerHeath.TakeDamage(30);
+        }else if (other.CompareTag("TurretP2") && part.transform.parent.parent.CompareTag("Player1"))
         {
             towerHeath = other.GetComponent<TowerHeath>();
             towerHeath.TakeDamage(30);
         }
 
-       
+
+
+
     }
 }
