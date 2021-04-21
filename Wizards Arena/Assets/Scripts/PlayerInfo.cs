@@ -42,16 +42,9 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.CompareTag("Player1"))
-        {
-            expUIPlayer2 = GameObject.FindGameObjectWithTag("PlayerExp2").GetComponent<Text>();
-        }
-        if (gameObject.CompareTag("Player2"))
-        {
-            expUIPlayer1 = GameObject.FindGameObjectWithTag("PlayerExp1").GetComponent<Text>();
-        }
+        
 
-        PlayerLevels();
+        
         
     }
 
@@ -74,109 +67,67 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IPunObservable
 
     public void addExp(int exp, string Player)
     {
-        if (Player.Equals("player1"))
+        if (Player.Equals("Player1"))
         {
             player1Exp += exp;
             Debug.Log("EXP: " + player1Exp);
         }
-        if (Player.Equals("player2"))
+        if (Player.Equals("Player2"))
         {
             player2Exp += exp;
             Debug.Log("EXP: " + player2Exp);
         }
+
     }
 
-    public void PlayerLevels()
+    public void PlayerLevels(string player)
     {
-        Debug.Log("ENTREI NO PLAYER LEVELS");
-        if (gameObject.CompareTag("Player1"))
+        
+        if (player.Equals("Player1"))
         {
+            Debug.Log("MORREU DRAGAO 2");
             if (player1Exp < 1000)
             {
                 expUI.text = "1";
-                expUIPlayer1.text = "1";
                 Debug.Log("Player1: Level1");
             }
             else if (player1Exp >= 1000 && player1Exp < 3000)
             {
                 expUI.text = "2";
-                expUIPlayer1.text = "2";
                 Debug.Log("Player1: Level2");
             }
             else if (player1Exp >= 3000 && player1Exp < 6000)
             {
                 expUI.text = "3";
-                expUIPlayer1.text = "3";
                 Debug.Log("Player1: Level3");
             }
             else if (player1Exp >= 6000 && player1Exp < 12000)
             {
                 expUI.text = "4";
-                expUIPlayer1.text = "4";
                 Debug.Log("Player1: Level4");
-            }
-
-            if (player2Exp < 1000)
-            {
-                expUIPlayer2.text = "1";
-                Debug.Log("Player2: Level1");
-            }
-            else if (player2Exp >= 1000 && player2Exp < 3000)
-            {
-                expUIPlayer2.text = "2";
-                Debug.Log("Player2: Level2");
-            }
-            else if (player2Exp >= 3000 && player2Exp < 6000)
-            {
-                expUIPlayer2.text = "3";
-                Debug.Log("Player2: Level3");
-            }
-            else if (player1Exp >= 6000 && player1Exp < 12000)
-            {
-                expUIPlayer2.text = "4";
-                Debug.Log("Player2: Level4");
             }
         }
 
-        if (gameObject.CompareTag("Player2"))
+        if (player.Equals("Player2"))
         {
+            Debug.Log("MORREU DRAGAO 1");
             if (player2Exp < 1000)
             {
                 expUI.text = "1";
-                expUIPlayer2.text = "1";
             }
             else if (player2Exp >= 1000 && player2Exp < 3000)
             {
                 expUI.text = "2";
-                expUIPlayer2.text = "2";
             }
             else if (player2Exp >= 3000 && player2Exp < 6000)
             {
                 expUI.text = "3";
-                expUIPlayer2.text = "3";
             }
             else if (player1Exp >= 6000 && player1Exp < 12000)
             {
                 expUI.text = "4";
-                expUIPlayer2.text = "4";
             }
 
-            if (player1Exp < 1000)
-            {
-                expUIPlayer1.text = "1";
-            }
-            else if (player1Exp >= 1000 && player1Exp < 3000)
-            {
-                expUIPlayer1.text = "2";
-            }
-            else if (player1Exp >= 3000 && player1Exp < 6000)
-            {
-                expUIPlayer1.text = "3";
-            }
-            else if (player1Exp >= 6000 && player1Exp < 12000)
-            {
-                expUIPlayer1.text = "4";
-            }
         }
     }
 }

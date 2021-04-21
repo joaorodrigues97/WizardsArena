@@ -73,12 +73,14 @@ public class MinionHealth : MonoBehaviourPunCallbacks, IPunObservable
         if (gameObject.CompareTag("DragonP1"))
         {
             player2Info.addCoins(50);
-            player2Info.addExp(1000, "player2");
+            player2Info.addExp(1000, "Player2");
+            player2Info.PlayerLevels("Player2");
         }
         else if (gameObject.CompareTag("DragonP2"))
         {
             player1Info.addCoins(50);
-            player1Info.addExp(1000, "player1");
+            player1Info.addExp(1000, "Player1");
+            player1Info.PlayerLevels("Player1");
         }
         DestroyImmediate(gameObject);
         PhotonNetwork.Destroy(PV);
