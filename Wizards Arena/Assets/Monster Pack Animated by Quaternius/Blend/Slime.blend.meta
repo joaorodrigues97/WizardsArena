@@ -2,7 +2,22 @@ fileFormatVersion: 2
 guid: e33fa5b7566adb249aa19a1ddbe30b40
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1989289236423521904
+    second: Default Take
+  - first:
+      74: 5329971354472814065
+    second: Slime_Attack
+  - first:
+      74: 55382096655505122
+    second: Slime_Death
+  - first:
+      74: -2377392306745622251
+    second: Slime_Idle
+  - first:
+      74: 5356576884460427086
+    second: Slime_Walk
   externalObjects: {}
   materials:
     materialImportMode: 2

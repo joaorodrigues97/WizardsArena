@@ -2,7 +2,25 @@ fileFormatVersion: 2
 guid: 41835565a85f4f945a07b4ef944be0d4
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1989289236423521904
+    second: Default Take
+  - first:
+      74: 2763381065142084686
+    second: Bat_Attack
+  - first:
+      74: -2308802667425878579
+    second: Bat_Attack2
+  - first:
+      74: 7276084177934861960
+    second: Bat_Death
+  - first:
+      74: 8048237567334459297
+    second: Bat_Flying
+  - first:
+      74: 5868097364856056665
+    second: Bat_Hit
   externalObjects: {}
   materials:
     materialImportMode: 2
