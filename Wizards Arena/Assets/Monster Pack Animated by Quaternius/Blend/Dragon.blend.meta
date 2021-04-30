@@ -2,7 +2,25 @@ fileFormatVersion: 2
 guid: 54067defdb5b03340afe91e72b162f38
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1989289236423521904
+    second: Default Take
+  - first:
+      74: -7280627663019324292
+    second: Dragon_Attack
+  - first:
+      74: 5104406560388231765
+    second: Dragon_Attack2
+  - first:
+      74: -6896253499424774250
+    second: Dragon_Death
+  - first:
+      74: -954640007586370377
+    second: Dragon_Flying
+  - first:
+      74: 389093488520131786
+    second: Dragon_Hit
   externalObjects: {}
   materials:
     materialImportMode: 2

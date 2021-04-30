@@ -2,7 +2,25 @@ fileFormatVersion: 2
 guid: 815027db4b1e7064487575a44c6ff94f
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1989289236423521904
+    second: Default Take
+  - first:
+      74: 4164315568735403849
+    second: Skeleton_Attack
+  - first:
+      74: -6629471613118851897
+    second: Skeleton_Death
+  - first:
+      74: -8904111415819297779
+    second: Skeleton_Idle
+  - first:
+      74: -1682986537609030830
+    second: Skeleton_Running
+  - first:
+      74: 1658125378298776867
+    second: Skeleton_Spawn
   externalObjects: {}
   materials:
     materialImportMode: 2
