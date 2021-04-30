@@ -96,9 +96,9 @@ public class MiniDragonMain : MonoBehaviourPunCallbacks
 
     public void enemyDamage()
     {
-        minionFollow.GetComponent<MinionHealth>().TakeDamage(30);
-       
+        if (minions.Length != 0)
+        {
+            minionFollow.GetComponent<MinionHealth>().TakeDamage(5);
+        }
     }
-
-    
 }

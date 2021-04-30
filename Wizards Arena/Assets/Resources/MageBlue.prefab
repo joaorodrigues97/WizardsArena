@@ -999,7 +999,6 @@ GameObject:
   - component: {fileID: 8092571433133753145}
   - component: {fileID: 8092571433133753144}
   - component: {fileID: 1370556050}
-  - component: {fileID: 304374947}
   - component: {fileID: 6310613422376110640}
   - component: {fileID: 1469325087767386057}
   m_Layer: 0
@@ -1145,18 +1144,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &304374947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8091160190645304288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13f04e9eb96244dce80ab7bb0492a0aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6310613422376110640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2202,6 +2189,7 @@ MonoBehaviour:
   DestroyTimeDelay: 5
   UseWorldSpacePosition: 0
   UseFirePointRotation: 0
+  canShoot: 0
 --- !u!1 &8730138140924974474
 GameObject:
   m_ObjectHideFlags: 0

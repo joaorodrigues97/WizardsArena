@@ -11,8 +11,6 @@ public class TowerHeath : MonoBehaviourPunCallbacks, IPunObservable
     public Slider healthTower;
     public bool TowerDead = false;
     private PhotonView PV;
-    private PlayerInfo player1Info;
-    private PlayerInfo player2Info;
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -30,8 +28,8 @@ public class TowerHeath : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         PV = GetComponent<PhotonView>();
-        player1Info = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerInfo>();
-        player2Info = GameObject.FindGameObjectWithTag("Player2").GetComponent<PlayerInfo>();
+        //player1Info = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerInfo>();
+        //player2Info = GameObject.FindGameObjectWithTag("Player2").GetComponent<PlayerInfo>();
     }
 
     // Update is called once per frame
@@ -65,7 +63,7 @@ public class TowerHeath : MonoBehaviourPunCallbacks, IPunObservable
 
     public void TowerDie()
     {
-        if (gameObject.CompareTag("TurretP1"))
+        /*if (gameObject.CompareTag("TurretP1"))
         {
 
             player2Info.addCoins(100);
@@ -74,7 +72,7 @@ public class TowerHeath : MonoBehaviourPunCallbacks, IPunObservable
         {
 
             player1Info.addCoins(100);
-        }
+        }*/
         PhotonNetwork.Destroy(transform.parent.gameObject);
     }
 }

@@ -72,7 +72,6 @@ public class PlayerAttack1 : MonoBehaviourPunCallbacks
             }
             TargetDirection = HitPoint - FirePoint.transform.position;
             ps.transform.rotation = Quaternion.LookRotation(TargetDirection);
-            //ps.transform.position = new Vector3(FirePoint.transform.position.x, FirePoint.transform.position.y, FirePoint.transform.position.z);
 
             IsHit = true;
         }

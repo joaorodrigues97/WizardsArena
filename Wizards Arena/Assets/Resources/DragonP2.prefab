@@ -619,6 +619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   healthDragon: {fileID: 3926351221241646104}
+  wasHit: 0
 --- !u!136 &1641854549
 CapsuleCollider:
   m_ObjectHideFlags: 0

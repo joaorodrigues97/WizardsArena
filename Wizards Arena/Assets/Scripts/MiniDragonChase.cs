@@ -10,13 +10,20 @@ public class MiniDragonChase : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         dragon = animator.GetComponent<MiniDragonMain>();
-        dragon.navMeshAgent.SetDestination(dragon.minionFollow.transform.position);
+        if (dragon.minions.Length != 0)
+        {
+            dragon.navMeshAgent.SetDestination(dragon.minionFollow.transform.position);
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        dragon.navMeshAgent.SetDestination(dragon.minionFollow.transform.position);
+        if (dragon.minions.Length != 0)
+        {
+            dragon.navMeshAgent.SetDestination(dragon.minionFollow.transform.position);
+        }
+        
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

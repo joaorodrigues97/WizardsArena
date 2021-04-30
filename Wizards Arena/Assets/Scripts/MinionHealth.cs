@@ -9,12 +9,12 @@ public class MinionHealth : MonoBehaviourPunCallbacks, IPunObservable
 
     public int health = 100;
     public Slider healthDragon;
+    public bool wasHit;
+    //private float timer;
+    //private float waitTime;
 
 
     private PhotonView PV;
-    private PlayerInfo player1Info;
-    private PlayerInfo player2Info;
-    private bool hasRunned;
     
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -39,21 +39,21 @@ public class MinionHealth : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         PV = GetComponent<PhotonView>();
-        player1Info = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerInfo>();
-        player2Info = GameObject.FindGameObjectWithTag("Player2").GetComponent<PlayerInfo>();
-        hasRunned = false;
+        wasHit = false;
+        //timer = 0f;
+        //waitTime = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0 && !hasRunned)
+        if (wasHit)
         {
-            Debug.Log("BOOL: "+hasRunned+" GameObject: "+gameObject+"Health: "+health);
-            hasRunned = true;
-            MinionDie();
+            Debug.Log("ACERTEI");
+            StartCoroutine(TakeDamageDragons(30));
+            
+            wasHit = false;
         }
-        
     }
 
     public void SetHealth(int health)
@@ -66,26 +66,18 @@ public class MinionHealth : MonoBehaviourPunCallbacks, IPunObservable
         healthDragon.maxValue = health;
         healthDragon.value = health;
     }
+    IEnumerator TakeDamageDragons(int damage)
+    {
+        Debug.Log("Entrei COROUTINE");
+        health -= damage;
+        SetHealth(health);
+        yield return new WaitForSeconds(1);
+    }
 
     public void MinionDie()
     {
-        
-        if (gameObject.CompareTag("DragonP1"))
-        {
-            player2Info.addCoins(50);
-            player2Info.addExp(1000, "Player2");
-            player2Info.PlayerLevels("Player2");
-        }
-        else if (gameObject.CompareTag("DragonP2"))
-        {
-            player1Info.addCoins(50);
-            player1Info.addExp(1000, "Player1");
-            player1Info.PlayerLevels("Player1");
-        }
-        DestroyImmediate(gameObject);
         PhotonNetwork.Destroy(PV);
-        
-        
+        //Destroy(gameObject);
     }
 
 }

@@ -21,7 +21,7 @@ public class MiniDragonAttack : StateMachineBehaviour
         {
             dragon.gameObject.transform.rotation = Quaternion.LookRotation(dragon.minionFollow.transform.position - dragon.transform.position);
         }*/
-        if (dragon.distanceToMinion <= 3)
+        if (dragon.distanceToMinion <= 3 && dragon.minions.Length != 0)
         {
             dragon.gameObject.transform.rotation = Quaternion.LookRotation(dragon.minionFollow.transform.position - dragon.transform.position);
         }

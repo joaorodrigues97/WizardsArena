@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         cam = GameObject.FindGameObjectWithTag("MainCamera");
         animation = GetComponent<Animator>();
         aim = GameObject.FindGameObjectWithTag("Aim").GetComponent<Image>();
-        Effect = PrefabsCast[0].GetComponent<ParticleSystem>();
+        //Effect = PrefabsCast[0].GetComponent<ParticleSystem>();
         collisionEvents = new List<ParticleCollisionEvent>();
 
     }

@@ -2,8 +2,10 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 
-public class ParticleCollisionInstance : MonoBehaviour
+
+public class ParticleCollisionInstance : MonoBehaviourPunCallbacks
 {
     public GameObject[] EffectsOnCollision;
     public float Offset = 0;
@@ -13,24 +15,29 @@ public class ParticleCollisionInstance : MonoBehaviour
     private ParticleSystem part;
     private MinionHealth minionHealth;
     private TowerHeath towerHeath;
+    public bool canShoot;
     
 
     void Start()
     {
         part = GetComponent<ParticleSystem>();
+        canShoot = false;
         
     }
     void OnParticleCollision(GameObject other)
     {
+        
         Debug.Log("Entrei no collision: "+other);
         if(other.CompareTag("DragonP1") && part.transform.parent.parent.CompareTag("Player2"))
         {
             minionHealth = other.GetComponent<MinionHealth>();
-            minionHealth.TakeDamage(30);
+            //minionHealth.TakeDamage(30);
+            minionHealth.wasHit = true;
         }else if (other.CompareTag("DragonP2") && part.transform.parent.parent.CompareTag("Player1"))
         {
             minionHealth = other.GetComponent<MinionHealth>();
-            minionHealth.TakeDamage(30);
+            //minionHealth.TakeDamage(30);
+            minionHealth.wasHit = true;
         }
 
         if (other.CompareTag("TurretP1") && part.transform.parent.parent.CompareTag("Player2"))
@@ -42,9 +49,6 @@ public class ParticleCollisionInstance : MonoBehaviour
             towerHeath = other.GetComponent<TowerHeath>();
             towerHeath.TakeDamage(30);
         }
-
-
-
-
+        
     }
 }
