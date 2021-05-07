@@ -68,7 +68,6 @@ public class MinionHealth : MonoBehaviourPunCallbacks, IPunObservable
     }
     IEnumerator TakeDamageDragons(int damage)
     {
-        Debug.Log("Entrei COROUTINE");
         health -= damage;
         SetHealth(health);
         yield return new WaitForSeconds(1);
@@ -76,7 +75,11 @@ public class MinionHealth : MonoBehaviourPunCallbacks, IPunObservable
 
     public void MinionDie()
     {
-        PhotonNetwork.Destroy(PV);
+        if (PV.IsMine)
+        {
+            PhotonNetwork.Destroy(PV);
+        }
+        
         //Destroy(gameObject);
     }
 

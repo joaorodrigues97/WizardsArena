@@ -19,6 +19,8 @@ TagManager:
   - exp
   - PlayerExp1
   - PlayerExp2
+  - BasicAttack
+  - GM
   layers:
   - Default
   - TransparentFX

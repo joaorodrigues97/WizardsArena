@@ -15,7 +15,9 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
     private GameObject[] dragonPlayer2;
     private string player1Str = "Player1";
     private string player2Str = "Player2";
-    private int initialCoins = 3000;
+    private List<int> dragon1CoinsExp;
+    private List<int> dragon2CoinsExp;
+    private int initialCoins = 15000;
     private Text coins;
     private int player1Exp;
     private int player2Exp;
@@ -50,6 +52,8 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
         expUI = GameObject.FindGameObjectWithTag("exp").GetComponent<Text>();
         PlayerCoins1 = initialCoins;
         PlayerCoins2 = initialCoins;
+        dragon1CoinsExp = new List<int>();
+        dragon2CoinsExp = new List<int>();
         player1Exp = 0;
         player2Exp = 0;
         coins.text = initialCoins.ToString();
@@ -85,7 +89,9 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
         }
         dragonPlayer1 = GameObject.FindGameObjectsWithTag("DragonP1");
         dragonPlayer2 = GameObject.FindGameObjectsWithTag("DragonP2");
+
         checkDragonHealth();
+        addExpAndCoins();
         try
         {
             checkExp1Bar();
@@ -103,19 +109,41 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
         if (player.Equals(player1Str))
         {
             PlayerCoins1 += value;
-            if (player1PV.IsMine)
-            {
-                coins.text = PlayerCoins1.ToString();
-            }
+            coins.text = PlayerCoins1.ToString();
         }else if (player.Equals(player2Str))
         {
             PlayerCoins2 += value;
-            if (player2PV.IsMine)
-            {
-                coins.text = PlayerCoins2.ToString();
-            }
+            coins.text = PlayerCoins2.ToString();
         }
         
+    }
+
+    public void addExpAndCoins()
+    {
+        if (dragon1CoinsExp.Count != 0)
+        {
+            for (int x1 = 0; x1 < dragon1CoinsExp.Count; x1++)
+            {
+                if (player2PV.IsMine)
+                {
+                    addCoins(50, player2Str);
+                    addExp(1000, player2Str);
+                }
+                dragon1CoinsExp.RemoveAt(x1);
+            }
+        }
+        if (dragon2CoinsExp.Count != 0)
+        {
+            for (int x2 = 0; x2 < dragon2CoinsExp.Count; x2++)
+            {
+                if (player1PV.IsMine)
+                {
+                    addCoins(50, player1Str);
+                    addExp(1000, player1Str);
+                }
+                dragon2CoinsExp.RemoveAt(x2);
+            }
+        }
     }
 
     public void checkDragonHealth()
@@ -124,39 +152,57 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
         for (int i = 0; i < dragonPlayer1.Length; i++)
         {
             Minion1health = dragonPlayer1[i].GetComponent<MinionHealth>().health;
+            
             if (Minion1health <= 0)
             {
+                dragonPlayer1[i].GetComponent<MinionHealth>().health = 100;
                 dragonPlayer1[i].GetComponent<MinionHealth>().MinionDie();
-                addCoins(50, player2Str);
-                addExp(1000, player2Str);
-                Debug.Log("EXP1: " + player1Exp);
+                dragon1CoinsExp.Add(1);
             }
         }
         int Minion2health;
         for (int i = 0; i < dragonPlayer2.Length; i++)
         {
             Minion2health = dragonPlayer2[i].GetComponent<MinionHealth>().health;
+            
             if (Minion2health <= 0)
             {
+                dragonPlayer2[i].GetComponent<MinionHealth>().health = 100;
                 dragonPlayer2[i].GetComponent<MinionHealth>().MinionDie();
-                addCoins(50, player1Str);
-                addExp(1000, player1Str);
-                Debug.Log("EXP2: " + player2Exp);
+                dragon2CoinsExp.Add(1);
             }
         }
+
+    }
+
+    public void subCoins(int value, string player)
+    {
+        
+        if (player.Equals(player1Str))
+        {
+            PlayerCoins1 -= value;
+            coins.text = PlayerCoins1.ToString();
+        }
+        if (player.Equals(player2Str))
+        {
+            PlayerCoins2 -= value;
+            coins.text = PlayerCoins2.ToString();
+        }
+    }
+
+    public int getPlayerCoins(string player)
+    {
+        if (player.Equals(player1Str))
+        {
+            return PlayerCoins1;
+        }
+        if (player.Equals(player2Str))
+        {
+            return PlayerCoins2;
+        }
+        return 0;
         
     }
-
-    /*public void subCoins(int value)
-    {
-        PlayerCoins -= value;
-        coins.text = PlayerCoins.ToString();
-    }
-
-    public int getPlayerCoins()
-    {
-        return this.PlayerCoins;
-    }*/
 
     public void addExp(int exp, string Player)
     {
@@ -164,13 +210,13 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
         {
             player1Exp += exp;
             PlayerLevels(player1Str);
-            
+
         }
         if (Player.Equals(player2Str))
         {
             player2Exp += exp;
             PlayerLevels(player2Str);
-            
+
         }
 
     }

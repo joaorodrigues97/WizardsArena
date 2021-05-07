@@ -1158,6 +1158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FirePoint: {fileID: 8092571433760987436}
   ps: {fileID: 8543197827763926798}
+  basicButton: {fileID: 0}
   aim: {fileID: 0}
 --- !u!114 &1469325087767386057
 MonoBehaviour:

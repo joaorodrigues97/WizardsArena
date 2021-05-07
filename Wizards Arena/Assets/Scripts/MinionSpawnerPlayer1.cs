@@ -14,9 +14,9 @@ public class MinionSpawnerPlayer1 : MonoBehaviourPun
         yield return new WaitForSeconds(5);
         PhotonNetwork.Instantiate(minionPrefab.name, spawnPoints[0].position, spawnPoints[0].rotation);
         PhotonNetwork.Instantiate(minionPrefab.name, spawnPoints[1].position, spawnPoints[1].rotation);
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 1; i++)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
             PhotonNetwork.Instantiate(minionPrefab.name, spawnPoints[0].position, spawnPoints[0].rotation);
             PhotonNetwork.Instantiate(minionPrefab.name, spawnPoints[1].position, spawnPoints[1].rotation);
         }
