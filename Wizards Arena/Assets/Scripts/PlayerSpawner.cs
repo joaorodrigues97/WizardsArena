@@ -13,6 +13,7 @@ public class PlayerSpawner : MonoBehaviourPun
 
     private void Awake()
     {
+        Application.targetFrameRate = 100;
         cam = FindObjectOfType<HS_CameraController>();
         if (PhotonNetwork.IsMasterClient)
         {

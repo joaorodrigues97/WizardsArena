@@ -26,6 +26,11 @@ public class MiniDragonAttack : StateMachineBehaviour
             dragon.gameObject.transform.rotation = Quaternion.LookRotation(dragon.minionFollow.transform.position - dragon.transform.position);
         }
 
+        if (dragon.distanceToTurret <= 6 && dragon.turrets.Length != 0)
+        {
+            dragon.gameObject.transform.rotation = Quaternion.LookRotation(dragon.turretFollow.transform.position - dragon.transform.position);
+        }
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

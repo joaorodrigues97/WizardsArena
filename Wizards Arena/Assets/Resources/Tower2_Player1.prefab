@@ -567,6 +567,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a17b6d80ac39459c9fed242c3e5797e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 400
   healthTower: {fileID: 2114270541018486146}
   TowerDead: 0

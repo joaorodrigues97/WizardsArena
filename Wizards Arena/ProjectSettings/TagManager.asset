@@ -21,6 +21,9 @@ TagManager:
   - PlayerExp2
   - BasicAttack
   - GM
+  - Skill1
+  - Skill2
+  - EarthShatter
   layers:
   - Default
   - TransparentFX

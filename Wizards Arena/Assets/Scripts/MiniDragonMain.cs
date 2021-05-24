@@ -8,15 +8,18 @@ public class MiniDragonMain : MonoBehaviourPunCallbacks
 {
     public GameObject player;
     public GameObject[] minions;
+    public GameObject[] turrets;
     public GameObject[] waypoints;
     public int currentTarget = 0;
     public NavMeshAgent navMeshAgent;
 
     public GameObject minionFollow;
+    public GameObject turretFollow;
 
     private Animator animator;
     private float distanceToPlayer;
     public float distanceToMinion;
+    public float distanceToTurret;
 
 
 
@@ -44,9 +47,11 @@ public class MiniDragonMain : MonoBehaviourPunCallbacks
         if (gameObject.CompareTag("DragonP1"))
         {
             minions = GameObject.FindGameObjectsWithTag("DragonP2");
+            turrets = GameObject.FindGameObjectsWithTag("TurretP2");
         }else if (gameObject.CompareTag("DragonP2"))
         {
             minions = GameObject.FindGameObjectsWithTag("DragonP1");
+            turrets = GameObject.FindGameObjectsWithTag("TurretP1");
         }
 
 
@@ -63,7 +68,18 @@ public class MiniDragonMain : MonoBehaviourPunCallbacks
         {
             animator.SetFloat("distanceToMinion",100);
         }
-        
+
+        if (turrets.Length != 0)
+        {
+            turretFollow = GetClosestEnemy(turrets);
+            distanceToTurret = (transform.position - turretFollow.transform.position).magnitude;
+            animator.SetFloat("distanceToTurret", distanceToTurret);
+        }
+        else
+        {
+            animator.SetFloat("distanceToTurret", 100);
+        }
+
 
 
     }

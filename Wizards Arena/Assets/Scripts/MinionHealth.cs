@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using BehaviorDesigner.Runtime;
 using Photon.Pun;
 
 public class MinionHealth : MonoBehaviourPunCallbacks, IPunObservable
 {
 
-    public int health = 100;
+    private int health = 100;
     public Slider healthDragon;
     public bool wasHit;
+    public BehaviorTree dragonTree;
+    private int minionDamage;
     //private float timer;
     //private float waitTime;
 
@@ -32,13 +35,14 @@ public class MinionHealth : MonoBehaviourPunCallbacks, IPunObservable
     public void TakeDamage(int damage)
     {
         health -= damage;
-        SetHealth(health);
+        SetHealthBar(health);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         PV = GetComponent<PhotonView>();
+        dragonTree = GetComponent<BehaviorTree>();
         wasHit = false;
         //timer = 0f;
         //waitTime = 1f;
@@ -47,16 +51,20 @@ public class MinionHealth : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
+        var myIntVariable = (SharedInt)dragonTree.GetVariable("health");
+        myIntVariable.Value = health;
+        var target = (SharedGameObject)dragonTree.GetVariable("TargetTurret");
+        
+
         if (wasHit)
         {
-            Debug.Log("ACERTEI");
-            StartCoroutine(TakeDamageDragons(30));
+            StartCoroutine(TakeDamageDragons(minionDamage));
             
             wasHit = false;
         }
     }
 
-    public void SetHealth(int health)
+    public void SetHealthBar(int health)
     {
         healthDragon.value = health;
     }
@@ -66,10 +74,11 @@ public class MinionHealth : MonoBehaviourPunCallbacks, IPunObservable
         healthDragon.maxValue = health;
         healthDragon.value = health;
     }
+
     IEnumerator TakeDamageDragons(int damage)
     {
         health -= damage;
-        SetHealth(health);
+        SetHealthBar(health);
         yield return new WaitForSeconds(1);
     }
 
@@ -80,7 +89,21 @@ public class MinionHealth : MonoBehaviourPunCallbacks, IPunObservable
             PhotonNetwork.Destroy(PV);
         }
         
-        //Destroy(gameObject);
     }
 
+    public void setDamage(int damage)
+    {
+        minionDamage = damage;
+    }
+
+
+    public int getMinionHealth()
+    {
+        return health;
+    }
+
+    public void setMinionHealth(int healthMinion)
+    {
+        health = healthMinion;
+    }
 }

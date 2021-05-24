@@ -7,25 +7,27 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviourPunCallbacks, IPunObservable
 {
-    private int PlayerHealth1 = 1100;
-    private int PlayerHealth2 = 1100;
     private int PlayerCoins1;
     private int PlayerCoins2;
     private GameObject[] dragonPlayer1;
     private GameObject[] dragonPlayer2;
+    private GameObject[] turretP1;
+    private GameObject[] turretP2;
     private string player1Str = "Player1";
     private string player2Str = "Player2";
     private List<int> dragon1CoinsExp;
     private List<int> dragon2CoinsExp;
-    private int initialCoins = 15000;
+    private int initialCoins = 100000;
     private Text coins;
     private int player1Exp;
     private int player2Exp;
     private Text expUI;
     private Text expUIPlayer1;
     private Text expUIPlayer2;
-    public PhotonView player1PV = null;
-    public PhotonView player2PV = null;
+    private PhotonView player1PV = null;
+    private PhotonView player2PV = null;
+
+    
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -89,8 +91,11 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
         }
         dragonPlayer1 = GameObject.FindGameObjectsWithTag("DragonP1");
         dragonPlayer2 = GameObject.FindGameObjectsWithTag("DragonP2");
+        turretP1 = GameObject.FindGameObjectsWithTag("TurretP1");
+        turretP2 = GameObject.FindGameObjectsWithTag("TurretP2");
 
         checkDragonHealth();
+        checkTurretHealth();
         addExpAndCoins();
         try
         {
@@ -151,11 +156,11 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
         int Minion1health;
         for (int i = 0; i < dragonPlayer1.Length; i++)
         {
-            Minion1health = dragonPlayer1[i].GetComponent<MinionHealth>().health;
+            Minion1health = dragonPlayer1[i].GetComponent<MinionHealth>().getMinionHealth();
             
             if (Minion1health <= 0)
             {
-                dragonPlayer1[i].GetComponent<MinionHealth>().health = 100;
+                dragonPlayer1[i].GetComponent<MinionHealth>().setMinionHealth(100);
                 dragonPlayer1[i].GetComponent<MinionHealth>().MinionDie();
                 dragon1CoinsExp.Add(1);
             }
@@ -163,16 +168,42 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
         int Minion2health;
         for (int i = 0; i < dragonPlayer2.Length; i++)
         {
-            Minion2health = dragonPlayer2[i].GetComponent<MinionHealth>().health;
+            Minion2health = dragonPlayer2[i].GetComponent<MinionHealth>().getMinionHealth();
             
             if (Minion2health <= 0)
             {
-                dragonPlayer2[i].GetComponent<MinionHealth>().health = 100;
+                dragonPlayer2[i].GetComponent<MinionHealth>().setMinionHealth(100);
                 dragonPlayer2[i].GetComponent<MinionHealth>().MinionDie();
                 dragon2CoinsExp.Add(1);
             }
         }
+    }
 
+    public void checkTurretHealth()
+    {
+        int turretHealthP1;
+        for (int i = 0; i < turretP1.Length; i++)
+        {
+            turretHealthP1 = turretP1[i].GetComponent<TurretHealth>().getTurretHealth();
+
+            if (turretHealthP1 <= 0)
+            {
+                turretP1[i].GetComponent<TurretHealth>().TurretDie();
+                GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerHealth>().subResistence(10);
+            }
+        }
+        int turretHealthP2;
+        for (int i = 0; i < turretP2.Length; i++)
+        {
+            turretHealthP2 = turretP2[i].GetComponent<TurretHealth>().getTurretHealth();
+
+            if (turretHealthP2 <= 0)
+            {
+                turretP2[i].GetComponent<TurretHealth>().TurretDie();
+                GameObject.FindGameObjectWithTag("Player2").GetComponent<PlayerHealth>().subResistence(10);
+                // TAVAMOS A METER AS RESISTENCIAS
+            }
+        }
     }
 
     public void subCoins(int value, string player)
@@ -242,6 +273,7 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
         }
 
     }
+
 
     public void checkExp2Bar()
     {
