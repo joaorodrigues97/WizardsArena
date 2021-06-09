@@ -19,7 +19,8 @@ public class inventoryMain : MonoBehaviour
     public GameObject itemDescription;
     public GameObject itemPrice;
     private GameController GM;
-    private PlayerPowers PP;
+    private PlayerPowers PPPlayer1;
+    private PlayerPowers PPPlayer2;
     public Sprite[] SkillV2;
     public Sprite[] SkillV3;
     string[] itemInfor;
@@ -42,7 +43,8 @@ public class inventoryMain : MonoBehaviour
             names[i] = equips[i].transform.parent.name;
         }
         GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameController>();
-        PP = GameObject.FindGameObjectWithTag("GM").GetComponent<PlayerPowers>();
+        PPPlayer1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerPowers>();
+        PPPlayer2 = GameObject.FindGameObjectWithTag("Player2").GetComponent<PlayerPowers>();
         itemInfor = new string[5] { "0", "0", "0", "", ""};
         
     }
@@ -145,7 +147,7 @@ public class inventoryMain : MonoBehaviour
             if (int.Parse(itemPrice) <= GM.getPlayerCoins("Player1") && i != 4)
             {
                 GM.subCoins(int.Parse(itemPrice), "Player1");
-                PP.addExtras(itemInfor[0], "V"+itemInfor[3], "Player1");
+                PPPlayer1.addExtras(itemInfor[0], "V"+itemInfor[3], skillsButton.GetComponent<Image>().sprite);
                 changeSkillIcon(itemInfor[0]);
                 if (int.Parse(itemInfor[4]) == 0)
                 {
@@ -163,7 +165,7 @@ public class inventoryMain : MonoBehaviour
             if (int.Parse(itemPrice) <= GM.getPlayerCoins("Player2") && i != 4)
             {
                 GM.subCoins(int.Parse(itemPrice), "Player2");
-                PP.addExtras(itemInfor[0], "V" + itemInfor[3], "Player2");
+                PPPlayer2.addExtras(itemInfor[0], "V" + itemInfor[3], skillsButton.GetComponent<Image>().sprite);
                 changeSkillIcon(itemInfor[0]);
                 if (int.Parse(itemInfor[4]) == 0)
                 {

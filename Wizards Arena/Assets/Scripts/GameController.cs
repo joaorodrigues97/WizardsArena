@@ -27,7 +27,8 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
     private PhotonView player1PV = null;
     private PhotonView player2PV = null;
 
-    
+
+
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -59,6 +60,8 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
         player1Exp = 0;
         player2Exp = 0;
         coins.text = initialCoins.ToString();
+
+        
     }
 
     // Update is called once per frame

@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 2177760867388944140}
   m_Layer: 5
   m_Name: HealthBar
-  m_TagString: Untagged
+  m_TagString: player2HealthBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -350,9 +350,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 500
+  m_MaxValue: 1100
   m_WholeNumbers: 0
-  m_Value: 500
+  m_Value: 550
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -426,7 +426,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.5
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -1190,12 +1190,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FirePoint: {fileID: 8092571433760987436}
   ps: {fileID: 8543197827763926798}
-  skill1: {fileID: 9024062753453160316}
-  skill1Continue: {fileID: 7441630506245189511}
-  skill2: {fileID: 7855294152887457679}
-  basicButton: {fileID: 0}
-  skill1Btn: {fileID: 0}
-  skill2Btn: {fileID: 0}
+  skill2: {fileID: 9024062753453160316}
+  skill2Continue: {fileID: 7441630506245189511}
+  skill1: {fileID: 7855294152887457679}
   aim: {fileID: 0}
 --- !u!114 &606181013910954433
 MonoBehaviour:
@@ -2524,6 +2521,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4732662177575788, guid: e18592f7c16013e499e4cc10383bac30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198061790963703668, guid: e18592f7c16013e499e4cc10383bac30, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198069091370379946, guid: e18592f7c16013e499e4cc10383bac30, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198220184307262992, guid: e18592f7c16013e499e4cc10383bac30, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198362827978568462, guid: e18592f7c16013e499e4cc10383bac30, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198575153349387258, guid: e18592f7c16013e499e4cc10383bac30, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198599601319225570, guid: e18592f7c16013e499e4cc10383bac30, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198609157343848516, guid: e18592f7c16013e499e4cc10383bac30, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198635489967277416, guid: e18592f7c16013e499e4cc10383bac30, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198698046354063852, guid: e18592f7c16013e499e4cc10383bac30, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199097681837819518, guid: e18592f7c16013e499e4cc10383bac30, type: 3}

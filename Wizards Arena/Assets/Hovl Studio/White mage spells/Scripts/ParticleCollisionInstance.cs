@@ -65,16 +65,13 @@ public class ParticleCollisionInstance : MonoBehaviourPunCallbacks
             player = other.GetComponent<PlayerHealth>();
             int player1Res = player.getResistence();
             int player2Damage = part.transform.parent.parent.GetComponent<PlayerHealth>().getPlayerDamage();
-            int totalDamage = player2Damage - (player2Damage * (player1Res/100));
+            int totalDamage = (int)(player2Damage - (player2Damage * (player1Res/100.0f)));
             player.TakeDamage(totalDamage);
-            Debug.Log("LIFE STEAL STATUS: "+ part.transform.parent.parent.GetComponent<PlayerPowers>().getLifeStealStatus());
-            if (part.transform.parent.parent.GetComponent<PlayerPowers>().getLifeStealStatus())
+            bool lifeSteal = part.transform.parent.parent.GetComponent<PlayerPowers>().getLifeStealStatus();
+            if (lifeSteal)
             {
-                Debug.Log("VIDA ANTES: "+ part.transform.parent.parent.GetComponent<PlayerHealth>().getCurrentHealth());
                 int percent = 35;
-                part.transform.parent.parent.GetComponent<PlayerPowers>().addHealth(totalDamage * (percent / 100));
-                Debug.Log("FIZ LIFE STEAL");
-                Debug.Log("VIDA DEPOIS: " + part.transform.parent.parent.GetComponent<PlayerHealth>().getCurrentHealth());
+                part.transform.parent.parent.GetComponent<PlayerHealth>().addHealth((int)(totalDamage * (percent / 100.0f)));
             }
 
         }
@@ -83,16 +80,13 @@ public class ParticleCollisionInstance : MonoBehaviourPunCallbacks
             player = other.GetComponent<PlayerHealth>();
             int player2Res = player.getResistence();
             int player1Damage = part.transform.parent.parent.GetComponent<PlayerHealth>().getPlayerDamage();
-            int totalDamage = player1Damage - (player1Damage * (player2Res / 100));
+            int totalDamage = (int)(player1Damage - (player1Damage * (player2Res / 100.0f)));
             player.TakeDamage(totalDamage);
-            Debug.Log("LIFE STEAL STATUS: " + part.transform.parent.parent.GetComponent<PlayerPowers>().getLifeStealStatus());
-            if (part.transform.parent.parent.GetComponent<PlayerPowers>().getLifeStealStatus())
+            bool lifeSteal = part.transform.parent.parent.GetComponent<PlayerPowers>().getLifeStealStatus();
+            if (lifeSteal)
             {
-                Debug.Log("VIDA ANTES: " + part.transform.parent.parent.GetComponent<PlayerHealth>().getCurrentHealth());
                 int percent = 35;
-                part.transform.parent.parent.GetComponent<PlayerPowers>().addHealth(totalDamage * (percent / 100));
-                Debug.Log("FIZ LIFE STEAL");
-                Debug.Log("VIDA DEPOIS: " + part.transform.parent.parent.GetComponent<PlayerHealth>().getCurrentHealth());
+                part.transform.parent.parent.GetComponent<PlayerHealth>().addHealth((int)(totalDamage * (percent / 100.0f)));
             }
         }
 

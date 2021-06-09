@@ -24,6 +24,15 @@ TagManager:
   - Skill1
   - Skill2
   - EarthShatter
+  - CanvasHealth
+  - player1HealthBar
+  - player2HealthBar
+  - imageCoolBasic
+  - textCoolBasic
+  - textCoolSkill1
+  - imageCoolSkill1
+  - textCoolSkill2
+  - imageCoolSkill2
   layers:
   - Default
   - TransparentFX
