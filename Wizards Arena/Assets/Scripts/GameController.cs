@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -19,13 +20,11 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
     private List<int> dragon2CoinsExp;
     private int initialCoins = 100000;
     private Text coins;
-    private int player1Exp;
-    private int player2Exp;
-    private Text expUI;
-    private Text expUIPlayer1;
-    private Text expUIPlayer2;
     private PhotonView player1PV = null;
     private PhotonView player2PV = null;
+    private bool isPlayer1Dead = false;
+    private bool isPlayer2Dead = false;
+    public Text winText;
 
 
 
@@ -34,17 +33,17 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(player1Exp);
-            stream.SendNext(player2Exp);
             stream.SendNext(PlayerCoins1);
             stream.SendNext(PlayerCoins2);
+            stream.SendNext(isPlayer1Dead);
+            stream.SendNext(isPlayer2Dead);
         }
         else
         {
-            player1Exp = (int)stream.ReceiveNext();
-            player2Exp = (int)stream.ReceiveNext();
             PlayerCoins1 = (int)stream.ReceiveNext();
             PlayerCoins2 = (int)stream.ReceiveNext();
+            isPlayer1Dead = (bool)stream.ReceiveNext();
+            isPlayer2Dead = (bool)stream.ReceiveNext();
         }
     }
 
@@ -52,15 +51,12 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         coins = GameObject.FindGameObjectWithTag("coins").GetComponent<Text>();
-        expUI = GameObject.FindGameObjectWithTag("exp").GetComponent<Text>();
         PlayerCoins1 = initialCoins;
         PlayerCoins2 = initialCoins;
         dragon1CoinsExp = new List<int>();
         dragon2CoinsExp = new List<int>();
-        player1Exp = 0;
-        player2Exp = 0;
         coins.text = initialCoins.ToString();
-
+        winText.gameObject.SetActive(false);
         
     }
 
@@ -72,7 +68,6 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
             try
             {
                 player1PV = GameObject.FindGameObjectWithTag("Player1").GetComponent<PhotonView>();
-                expUIPlayer1 = GameObject.FindGameObjectWithTag("PlayerExp1").GetComponent<Text>();
             }
             catch(Exception)
             {
@@ -85,7 +80,6 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
             try
             {
                 player2PV = GameObject.FindGameObjectWithTag("Player2").GetComponent<PhotonView>();
-                expUIPlayer2 = GameObject.FindGameObjectWithTag("PlayerExp2").GetComponent<Text>();
             }
             catch (Exception)
             {
@@ -100,16 +94,34 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
         checkDragonHealth();
         checkTurretHealth();
         addExpAndCoins();
-        try
+
+        endGame();
+    }
+
+    private void endGame()
+    {
+        if (isPlayer1Dead)
         {
-            checkExp1Bar();
+            winText.gameObject.SetActive(true);
+            winText.text = "Player 2 Wins";
+            Time.timeScale = 0;
         }
-        catch (Exception) { }
-        try
+        if (isPlayer2Dead)
         {
-            checkExp2Bar();
+            winText.gameObject.SetActive(true);
+            winText.text = "Player 1 Wins";
+            Time.timeScale = 0;
         }
-        catch (Exception) { }
+    }
+
+    public void setPlayer1Dead()
+    {
+        isPlayer1Dead = true;
+    }
+
+    public void setPlayer2Dead()
+    {
+        isPlayer2Dead = true;
     }
 
     public void addCoins(int value, string player)
@@ -135,7 +147,6 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
                 if (player2PV.IsMine)
                 {
                     addCoins(50, player2Str);
-                    addExp(1000, player2Str);
                 }
                 dragon1CoinsExp.RemoveAt(x1);
             }
@@ -147,7 +158,6 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
                 if (player1PV.IsMine)
                 {
                     addCoins(50, player1Str);
-                    addExp(1000, player1Str);
                 }
                 dragon2CoinsExp.RemoveAt(x2);
             }
@@ -237,115 +247,29 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
         return 0;
         
     }
+    
+    
 
-    public void addExp(int exp, string Player)
+    public void DisconnectPlayer()
     {
-        if (Player.Equals(player1Str))
-        {
-            player1Exp += exp;
-            PlayerLevels(player1Str);
-
-        }
-        if (Player.Equals(player2Str))
-        {
-            player2Exp += exp;
-            PlayerLevels(player2Str);
-
-        }
-
+        StartCoroutine(DisconnectAndLoad());
     }
 
-    public void checkExp1Bar()
+    IEnumerator DisconnectAndLoad()
     {
-
-        if (player1Exp < 1000)
+        PhotonNetwork.LeaveRoom();
+        while (PhotonNetwork.InRoom)
         {
-            expUIPlayer1.text = "1";
+            yield return null;
         }
-        else if (player1Exp >= 1000 && player1Exp < 3000)
+        SceneManager.LoadScene("FirstMenu");
+        if(PhotonNetwork.LocalPlayer == PhotonNetwork.MasterClient)
         {
-            expUIPlayer1.text = "2";
+            GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerHealth>().deathPlayer();
         }
-        else if (player1Exp >= 3000 && player1Exp < 6000)
+        else
         {
-            expUIPlayer1.text = "3";
-        }
-        else if (player1Exp >= 6000 && player1Exp < 12000)
-        {
-            expUIPlayer1.text = "4";
-        }
-
-    }
-
-
-    public void checkExp2Bar()
-    {
-
-        if (player2Exp < 1000)
-        {
-            expUIPlayer2.text = "1";
-        }
-        else if (player2Exp >= 1000 && player2Exp < 3000)
-        {
-            expUIPlayer2.text = "2";
-        }
-        else if (player2Exp >= 3000 && player2Exp < 6000)
-        {
-            expUIPlayer2.text = "3";
-        }
-        else if (player2Exp >= 6000 && player2Exp < 12000)
-        {
-            expUIPlayer2.text = "4";
-        }
-    }
-
-    public void PlayerLevels(string player)
-    {
-
-        if (player.Equals(player1Str))
-        {
-            if (player1PV.IsMine)
-            {
-                if (player1Exp < 1000)
-                {
-                    expUI.text = "1";
-                }
-                else if (player1Exp >= 1000 && player1Exp < 3000)
-                {
-                    expUI.text = "2";
-                }
-                else if (player1Exp >= 3000 && player1Exp < 6000)
-                {
-                    expUI.text = "3";
-                }
-                else if (player1Exp >= 6000 && player1Exp < 12000)
-                {
-                    expUI.text = "4";
-                }
-            }
-        }
-
-        if (player.Equals(player2Str))
-        {
-            if (player2PV.IsMine)
-            {
-                if (player2Exp < 1000)
-                {
-                    expUI.text = "1";
-                }
-                else if (player2Exp >= 1000 && player2Exp < 3000)
-                {
-                    expUI.text = "2";
-                }
-                else if (player2Exp >= 3000 && player2Exp < 6000)
-                {
-                    expUI.text = "3";
-                }
-                else if (player2Exp >= 6000 && player2Exp < 12000)
-                {
-                    expUI.text = "4";
-                }
-            }
+            GameObject.FindGameObjectWithTag("Player2").GetComponent<PlayerHealth>().deathPlayer();
         }
     }
 }

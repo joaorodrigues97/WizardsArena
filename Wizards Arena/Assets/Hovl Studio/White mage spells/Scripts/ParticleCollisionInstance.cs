@@ -77,6 +77,7 @@ public class ParticleCollisionInstance : MonoBehaviourPunCallbacks
         }
         else if (other.CompareTag("Player2") && part.transform.parent.parent.CompareTag("Player1"))
         {
+            
             player = other.GetComponent<PlayerHealth>();
             int player2Res = player.getResistence();
             int player1Damage = part.transform.parent.parent.GetComponent<PlayerHealth>().getPlayerDamage();
@@ -88,6 +89,8 @@ public class ParticleCollisionInstance : MonoBehaviourPunCallbacks
                 int percent = 35;
                 part.transform.parent.parent.GetComponent<PlayerHealth>().addHealth((int)(totalDamage * (percent / 100.0f)));
             }
+            
+            
         }
 
     }

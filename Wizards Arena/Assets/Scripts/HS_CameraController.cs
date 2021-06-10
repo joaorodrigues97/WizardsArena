@@ -55,7 +55,7 @@ public class HS_CameraController : MonoBehaviour
         // (currDistance - 2) / 3.5f - constant for far camera position
         var targetPos = Holder.position + new Vector3(0, (distanceHit - 2) / 3f + cameraPos[1], 0);
 
-        currDistance -= Input.GetAxis("Mouse ScrollWheel") * 2;
+        //currDistance -= Input.GetAxis("Mouse ScrollWheel") * 2;
         if (Holder)
         {
             var pos = Input.mousePosition;
@@ -64,13 +64,9 @@ public class HS_CameraController : MonoBehaviour
             if (Screen.dpi < 200) dpiScale = 1;
             else dpiScale = Screen.dpi / 200f;
             if (pos.x < 380 * dpiScale && Screen.height - pos.y < 250 * dpiScale) return;
-            //Cursor.visible = false;
-            //Cursor.lockState = CursorLockMode.Locked;
-            //x += (float)(Input.GetAxis("Mouse X") * xRotate * 0.02);
-            //y -= (float)(Input.GetAxis("Mouse Y") * yRotate * 0.02);
             x += (float)(joystick.Horizontal * xRotate * 0.02);
             y -= (float)(joystick.Vertical * yRotate * 0.02);
-            y = ClampAngle(y, yMinLimit, yMaxLimit);
+            y = ClampAngle(y, -10f, 20f);
             var rotation = Quaternion.Euler(y, x, 0);
             var position = rotation * new Vector3(0, 0, -currDistance) + targetPos;
             //If camera collide with collidingLayers move it to this point.
@@ -94,7 +90,7 @@ public class HS_CameraController : MonoBehaviour
             //Cursor.lockState = CursorLockMode.None;
         }
 
-        if (prevDistance != currDistance)
+        /*if (prevDistance != currDistance)
         {
             prevDistance = currDistance;
             var rot = Quaternion.Euler(y, x, 0);
@@ -102,7 +98,7 @@ public class HS_CameraController : MonoBehaviour
             var po = rot * new Vector3(0, 0, -currDistance) + targetPos;
             transform.rotation = rot;
             transform.position = po;
-        }
+        }*/
     }
 
     static float ClampAngle(float angle, float min, float max)

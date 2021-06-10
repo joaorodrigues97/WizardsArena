@@ -187,10 +187,6 @@ public class PlayerPowers : MonoBehaviourPunCallbacks, IPunObservable
         playerH.addHealth((int)(maxHealth*(percentage/100.0f))/2);
     }
 
-    public void changeCoolDown(int newCooldown)
-    {
-        //Player.cooldown = newCooldown
-    }
 
     public void changeBaseDamage(int newDamage)
     {

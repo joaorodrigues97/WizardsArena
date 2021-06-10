@@ -15,6 +15,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
     public Slider healthPlayer;
     private Slider mySliderHealth;
     private PhotonView PV;
+    private GameController GM;
 
 
     //PLAYER RESISTENCE = COUNT TORRES * 10
@@ -38,6 +39,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
     {
         PV = GetComponent<PhotonView>();
         mySliderHealth = GameObject.FindGameObjectWithTag("CanvasHealth").GetComponent<Slider>();
+        GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameController>();
         playerMaxHealth = 1100;
         playerDamage = 30;
         playerResistence = 30;
@@ -48,7 +50,31 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
         mySliderHealth.value = playerMaxHealth;
     }
 
-    
+    void Update()
+    {
+        deathPlayer();
+    }
+
+    /*private void isPlayerDead()
+    {
+        
+        if (playerHealth <= 0)
+        {
+            if (gameObject.tag.Equals("Player1"))
+            {
+                GM.setPlayer1Dead();
+            }else if (gameObject.tag.Equals("Player2"))
+            {
+                GM.setPlayer2Dead();
+            }
+        }
+        
+    }*/
+
+    public void deathPlayer()
+    {
+        PV.RPC("isPlayerDead", RpcTarget.All);
+    }
 
     public int getPlayerDamage()
     {
@@ -151,7 +177,11 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
         {
             mySliderHealth.value = playerHealth;
         }*/
-        PV.RPC("takeDamage", RpcTarget.All, newHealth);
+        if (PV.IsMine)
+        {
+            PV.RPC("takeDamage", RpcTarget.All, newHealth);
+        }
+        
 
     }
 
@@ -180,4 +210,21 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
             mySliderHealth.value = playerHealth;
         }
     }
+
+    [PunRPC]
+    void isPlayerDead()
+    {
+        if (playerHealth <= 0)
+        {
+            if (gameObject.tag.Equals("Player1"))
+            {
+                GM.setPlayer1Dead();
+            }
+            else if (gameObject.tag.Equals("Player2"))
+            {
+                GM.setPlayer2Dead();
+            }
+        }
+    }
+
 }
