@@ -30,12 +30,18 @@ EditorBuildSettings:
     path: Assets/Scenes/FirstMenu.unity
     guid: 878f18cb339bc47b1b8cd79ac9e65743
   - enabled: 1
+    path: Assets/Scenes/ConfigMenu.unity
+    guid: 7db14793a2fd5457998e4284ab90e036
+  - enabled: 1
+    path: Assets/Scenes/HelpMenu.unity
+    guid: 31e2558aaeaa14d17a34aaf096dcce72
+  - enabled: 1
     path: Assets/Scenes/HomeMenu.unity
     guid: cd00c219c4a5a4b58bddb7e0342d6274
   - enabled: 1
     path: Assets/Scenes/WizardsArenaGame.unity
     guid: 5e58503d79b55df42893f3164f6a62b6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameEnded.unity
     guid: 0c17992c44b164882b2c2e0431accf73
   m_configObjects: {}

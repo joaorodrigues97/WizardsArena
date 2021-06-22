@@ -18,6 +18,9 @@ public class HS_CameraController : MonoBehaviour
     private float x = 0.0f;
     private float y = 0.0f;
 
+    private float sensiX = 0.007f;
+    private float sensiY = 0.007f;
+
     [SerializeField] private FixedJoystick joystick;
 
     //For camera colliding
@@ -62,10 +65,10 @@ public class HS_CameraController : MonoBehaviour
             float dpiScale = 1;
             if (Screen.dpi < 1) dpiScale = 1;
             if (Screen.dpi < 200) dpiScale = 1;
-            else dpiScale = Screen.dpi / 200f;
+            else dpiScale = Screen.dpi / 1000f;
             if (pos.x < 380 * dpiScale && Screen.height - pos.y < 250 * dpiScale) return;
-            x += (float)(joystick.Horizontal * xRotate * 0.02);
-            y -= (float)(joystick.Vertical * yRotate * 0.02);
+            x += (float)(joystick.Horizontal * xRotate * sensiX);
+            y -= (float)(joystick.Vertical * yRotate * sensiY);
             y = ClampAngle(y, -10f, 20f);
             var rotation = Quaternion.Euler(y, x, 0);
             var position = rotation * new Vector3(0, 0, -currDistance) + targetPos;

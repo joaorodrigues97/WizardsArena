@@ -7,7 +7,7 @@ using Photon.Pun;
 public class TurretHealth : MonoBehaviourPunCallbacks, IPunObservable
 {
 
-    private int health = 500;
+    private int health = 1000;
     public Slider healthTurret;
     public bool TowerDead = false;
     private PhotonView PV;
@@ -39,9 +39,15 @@ public class TurretHealth : MonoBehaviourPunCallbacks, IPunObservable
         SetHealth(health);
     }
 
-    public void SetHealth(int health)
+    public void SetHealth(int newHealth)
     {
-        healthTurret.value = health;
+        //health = newHealth;
+        healthTurret.value = newHealth;
+    }
+
+    public void setHealthTurretDeath(int newHealth)
+    {
+        health = newHealth;
     }
 
     public void SetMaxHealth(int health)

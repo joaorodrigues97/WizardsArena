@@ -8,7 +8,7 @@ using Photon.Pun;
 public class MinionHealth : MonoBehaviourPunCallbacks, IPunObservable
 {
 
-    private int health = 100;
+    private int health = 300;
     public Slider healthDragon;
     public bool wasHit;
     public BehaviorTree dragonTree;

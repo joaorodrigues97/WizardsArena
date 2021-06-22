@@ -79,6 +79,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
 
             if (usePhysics2D) {
                 if (targetObjects.Value != null && targetObjects.Value.Count > 0) { // If there are objects in the group list then search for the object within that list
+                    
                     GameObject objectFound = null;
                     float minAngle = Mathf.Infinity;
                     for (int i = 0; i < targetObjects.Value.Count; ++i) {
@@ -94,10 +95,13 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                     }
                     returnedObject.Value = objectFound;
                 } else if (targetObject.Value != null) { // If the target is not null then determine if that object is within sight
+                    
                     returnedObject.Value = MovementUtility.WithinSight2D(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, targetObject.Value, targetOffset.Value, angleOffset2D.Value, ignoreLayerMask, useTargetBone.Value, targetBone);
                 } else if (!string.IsNullOrEmpty(targetTag.Value)) { // If the target tag is not null then determine if there are any objects within sight based on the tag
+                    
                     returnedObject.Value = MovementUtility.WithinSight2D(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, GameObject.FindGameObjectWithTag(targetTag.Value), targetOffset.Value, angleOffset2D.Value, ignoreLayerMask, useTargetBone.Value, targetBone);
                 } else { // If the target object is null and there is no tag then determine if there are any objects within sight based on the layer mask
+                    
                     if (overlap2DColliders == null) {
                         overlap2DColliders = new Collider2D[maxCollisionCount];
                     }
@@ -105,6 +109,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                 }
             } else {
                 if (targetObjects.Value != null && targetObjects.Value.Count > 0) { // If there are objects in the group list then search for the object within that list
+                   
                     GameObject objectFound = null;
                     float minAngle = Mathf.Infinity;
                     for (int i = 0; i < targetObjects.Value.Count; ++i) {
@@ -120,10 +125,14 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                     }
                     returnedObject.Value = objectFound;
                 } else if (targetObject.Value != null) { // If the target is not null then determine if that object is within sight
+                    
                     returnedObject.Value = MovementUtility.WithinSight(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, targetObject.Value, targetOffset.Value, ignoreLayerMask, useTargetBone.Value, targetBone);
                 } else if (!string.IsNullOrEmpty(targetTag.Value)) { // If the target tag is not null then determine if there are any objects within sight based on the tag
+                    
                     returnedObject.Value = MovementUtility.WithinSight(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, GameObject.FindGameObjectWithTag(targetTag.Value), targetOffset.Value, ignoreLayerMask, useTargetBone.Value, targetBone);
+                    
                 } else { // If the target object is null and there is no tag then determine if there are any objects within sight based on the layer mask
+                   
                     if (overlapColliders == null) {
                         overlapColliders = new Collider[maxCollisionCount];
                     }

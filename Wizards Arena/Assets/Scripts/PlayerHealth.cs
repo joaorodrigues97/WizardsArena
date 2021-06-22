@@ -40,7 +40,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
         PV = GetComponent<PhotonView>();
         mySliderHealth = GameObject.FindGameObjectWithTag("CanvasHealth").GetComponent<Slider>();
         GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameController>();
-        playerMaxHealth = 1100;
+        playerMaxHealth = 1800;
         playerDamage = 30;
         playerResistence = 30;
         playerHealth = playerMaxHealth;
@@ -53,6 +53,7 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
     void Update()
     {
         deathPlayer();
+        playerLeftRoom();
     }
 
     /*private void isPlayerDead()
@@ -177,12 +178,27 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
         {
             mySliderHealth.value = playerHealth;
         }*/
+
         if (PV.IsMine)
         {
             PV.RPC("takeDamage", RpcTarget.All, newHealth);
         }
         
 
+    }
+
+    public void TakeDamageSkill3(int newHealth)
+    {
+
+        /*playerHealth -= newHealth;
+        healthPlayer.value = playerHealth;
+        if (PV.IsMine)
+        {
+            mySliderHealth.value = playerHealth;
+        }*/
+
+        PV.RPC("takeDamage", RpcTarget.All, newHealth);
+        
     }
 
 
@@ -224,6 +240,14 @@ public class PlayerHealth : MonoBehaviourPunCallbacks, IPunObservable
             {
                 GM.setPlayer2Dead();
             }
+        }
+    }
+
+    private void playerLeftRoom()
+    {
+        if (PhotonNetwork.PlayerList.Length < 2)
+        {
+            GM.playerLeave();
         }
     }
 

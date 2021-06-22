@@ -17,6 +17,7 @@ public class RoomBtn : MonoBehaviour
 
     public void joinRoomOnClick()
     {
+        GetComponent<AudioSource>().Play();
         PhotonNetwork.JoinRoom(roomName);
     }
 }

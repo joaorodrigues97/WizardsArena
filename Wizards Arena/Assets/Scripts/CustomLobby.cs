@@ -13,6 +13,7 @@ public class CustomLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
     public GameObject roomListingPrefab;
     public Transform roomsPanel;
 
+
     private void Awake()
     {
         lobby = this;
@@ -81,7 +82,10 @@ public class CustomLobby : MonoBehaviourPunCallbacks, ILobbyCallbacks
     {
         if (!PhotonNetwork.InLobby)
         {
+            
             PhotonNetwork.JoinLobby();
         }
     }
+
+   
 }

@@ -18,13 +18,20 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
     private string player2Str = "Player2";
     private List<int> dragon1CoinsExp;
     private List<int> dragon2CoinsExp;
-    private int initialCoins = 100000;
+    private List<int> turret1CoinsExp;
+    private List<int> turret2CoinsExp;
+    private int initialCoins = 500;
     private Text coins;
     private PhotonView player1PV = null;
     private PhotonView player2PV = null;
     private bool isPlayer1Dead = false;
     private bool isPlayer2Dead = false;
-    public Text winText;
+    public GameObject winCanvas;
+    public Image winImg;
+    public Image DefeatImg;
+    public AudioSource btnClick;
+    private int minionPrice;
+    private int turretPrice;
 
 
 
@@ -33,15 +40,11 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(PlayerCoins1);
-            stream.SendNext(PlayerCoins2);
             stream.SendNext(isPlayer1Dead);
             stream.SendNext(isPlayer2Dead);
         }
         else
         {
-            PlayerCoins1 = (int)stream.ReceiveNext();
-            PlayerCoins2 = (int)stream.ReceiveNext();
             isPlayer1Dead = (bool)stream.ReceiveNext();
             isPlayer2Dead = (bool)stream.ReceiveNext();
         }
@@ -50,13 +53,17 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
+        minionPrice = 1000;
+        turretPrice = 4000;
         coins = GameObject.FindGameObjectWithTag("coins").GetComponent<Text>();
         PlayerCoins1 = initialCoins;
         PlayerCoins2 = initialCoins;
         dragon1CoinsExp = new List<int>();
         dragon2CoinsExp = new List<int>();
+        turret1CoinsExp = new List<int>();
+        turret2CoinsExp = new List<int>();
         coins.text = initialCoins.ToString();
-        winText.gameObject.SetActive(false);
+        winCanvas.SetActive(false);
         
     }
 
@@ -102,16 +109,35 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (isPlayer1Dead)
         {
-            winText.gameObject.SetActive(true);
-            winText.text = "Player 2 Wins";
-            Time.timeScale = 0;
+            winCanvas.SetActive(true);
+            if (PhotonNetwork.LocalPlayer == PhotonNetwork.MasterClient)
+            {
+                DefeatImg.gameObject.SetActive(true);
+            }
+            else
+            {
+                winImg.gameObject.SetActive(true);
+            }
+            
         }
         if (isPlayer2Dead)
         {
-            winText.gameObject.SetActive(true);
-            winText.text = "Player 1 Wins";
-            Time.timeScale = 0;
+            winCanvas.SetActive(true);
+            if (PhotonNetwork.LocalPlayer == PhotonNetwork.MasterClient)
+            {
+                winImg.gameObject.SetActive(true);
+            }
+            else
+            {
+                DefeatImg.gameObject.SetActive(true);
+            }
         }
+    }
+
+    public void playerLeave()
+    {
+        winCanvas.SetActive(true);
+        winImg.gameObject.SetActive(true);
     }
 
     public void setPlayer1Dead()
@@ -146,7 +172,7 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if (player2PV.IsMine)
                 {
-                    addCoins(50, player2Str);
+                    addCoins(minionPrice, player2Str);
                 }
                 dragon1CoinsExp.RemoveAt(x1);
             }
@@ -157,9 +183,31 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if (player1PV.IsMine)
                 {
-                    addCoins(50, player1Str);
+                    addCoins(minionPrice, player1Str);
                 }
                 dragon2CoinsExp.RemoveAt(x2);
+            }
+        }
+        if (turret1CoinsExp.Count != 0)
+        {
+            for (int x1 = 0; x1 < turret1CoinsExp.Count; x1++)
+            {
+                if (player2PV.IsMine)
+                {
+                    addCoins(turretPrice, player2Str);
+                }
+                turret1CoinsExp.RemoveAt(x1);
+            }
+        }
+        if (turret2CoinsExp.Count != 0)
+        {
+            for (int x2 = 0; x2 < turret2CoinsExp.Count; x2++)
+            {
+                if (player1PV.IsMine)
+                {
+                    addCoins(turretPrice, player1Str);
+                }
+                turret2CoinsExp.RemoveAt(x2);
             }
         }
     }
@@ -201,8 +249,11 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
 
             if (turretHealthP1 <= 0)
             {
+                turretP1[i].GetComponent<TurretHealth>().setHealthTurretDeath(500);
                 turretP1[i].GetComponent<TurretHealth>().TurretDie();
                 GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerHealth>().subResistence(10);
+                turret1CoinsExp.Add(1);
+                
             }
         }
         int turretHealthP2;
@@ -212,9 +263,11 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
 
             if (turretHealthP2 <= 0)
             {
+                turretP2[i].GetComponent<TurretHealth>().setHealthTurretDeath(500);
                 turretP2[i].GetComponent<TurretHealth>().TurretDie();
                 GameObject.FindGameObjectWithTag("Player2").GetComponent<PlayerHealth>().subResistence(10);
-                // TAVAMOS A METER AS RESISTENCIAS
+                turret2CoinsExp.Add(1);
+                
             }
         }
     }
@@ -248,28 +301,4 @@ public class GameController : MonoBehaviourPunCallbacks, IPunObservable
         
     }
     
-    
-
-    public void DisconnectPlayer()
-    {
-        StartCoroutine(DisconnectAndLoad());
-    }
-
-    IEnumerator DisconnectAndLoad()
-    {
-        PhotonNetwork.LeaveRoom();
-        while (PhotonNetwork.InRoom)
-        {
-            yield return null;
-        }
-        SceneManager.LoadScene("FirstMenu");
-        if(PhotonNetwork.LocalPlayer == PhotonNetwork.MasterClient)
-        {
-            GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerHealth>().deathPlayer();
-        }
-        else
-        {
-            GameObject.FindGameObjectWithTag("Player2").GetComponent<PlayerHealth>().deathPlayer();
-        }
-    }
 }

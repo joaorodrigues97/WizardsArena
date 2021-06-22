@@ -22,25 +22,10 @@ public class PlayerSpawner : MonoBehaviourPun
         }
         else
         {
-            GameObject player = PhotonNetwork.Instantiate(playerPrefab2.name, spawnPoints[1].position, spawnPoints[1].rotation);
+            GameObject player = PhotonNetwork.Instantiate(playerPrefab2.name, spawnPoints[1].position, spawnPoints[1].localRotation);
+            cam.transform.Rotate(14f,180f,0f);
             cam.SetCameraTarget(player.transform);
         }
-        
-
-
-        /*int i = PhotonNetwork.CurrentRoom.PlayerCount - 1;
-        if (i == 0)
-        {
-            GameObject player = PhotonNetwork.Instantiate(playerPrefab1.name, spawnPoints[i].position, spawnPoints[i].rotation);
-            cam.SetCameraTarget(player.transform);
-        }else if (i == 1)
-        {
-            GameObject player = PhotonNetwork.Instantiate(playerPrefab2.name, spawnPoints[i].position, spawnPoints[i].rotation);
-            cam.SetCameraTarget(player.transform);
-        }*/
-
-
-
     }
 
     

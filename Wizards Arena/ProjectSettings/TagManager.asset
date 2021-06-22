@@ -33,6 +33,10 @@ TagManager:
   - imageCoolSkill1
   - textCoolSkill2
   - imageCoolSkill2
+  - Skill3
+  - imageCoolSkill3
+  - textCoolSkill3
+  - SFX
   layers:
   - Default
   - TransparentFX

@@ -9,7 +9,7 @@ public class inventoryMain : MonoBehaviour
 
     public Button inventoryButton;
     public int PlayerCoins;
-    public bool isOpen = false;
+    private bool isOpen = false;
     public Button[] equips;
     private string[] names;
     Dictionary<string, string> equipsDescription;
@@ -31,6 +31,9 @@ public class inventoryMain : MonoBehaviour
     public skill1Version Sk1V = skill1Version.V1;
     public skill2Version Sk2V = skill2Version.V1;
     public skill3Version Sk3V = skill3Version.V1;
+
+    public GameObject quitMenu;
+    public AudioSettingsScene SFX;
 
     // Start is called before the first frame update
     void Start()
@@ -215,27 +218,27 @@ public class inventoryMain : MonoBehaviour
                 itemName = name;
                 if (Sk1V == skill1Version.V1)
                 {
-                    itemDescription = "Description of skill 1";
+                    itemDescription = "Earth Shatter - Level 1:\nThis skill can deal between 40HP and 80HP damage";
                     itemPrice = "1000";
                     skillLevel = "1";
                     invType = "1";
                 }else if (Sk1V == skill1Version.V2)
                 {
-                    itemDescription = "First Evolution of skill 1";
+                    itemDescription = "Earth Shatter - Level 2:\nThis skill can deal between 55HP and 110HP damage";
                     itemPrice = "1500";
                     skillLevel = "2";
                     invType = "1";
                 }
                 else if (Sk1V == skill1Version.V3)
                 {
-                    itemDescription = "Final Evolution of skill 1";
+                    itemDescription = "Earth Shatter - Level 3:\nThis skill can deal between 70HP and 140HP damage";
                     itemPrice = "2000";
                     skillLevel = "3";
                     invType = "1";
                 }
                 else if (Sk1V == skill1Version.VF)
                 {
-                    itemDescription = "Final Evolution of skill 1";
+                    itemDescription = "This skill is totally completed";
                     itemPrice = "2000";
                     skillLevel = "4";
                     invType = "1";
@@ -245,29 +248,29 @@ public class inventoryMain : MonoBehaviour
                 itemName = name;
                 if (Sk2V == skill2Version.V1)
                 {
-                    itemDescription = "Description of skill 2";
-                    itemPrice = "2000";
+                    itemDescription = "Life Regen - Level 1: This\nskill heals 100HP of the player's life";
+                    itemPrice = "1600";
                     skillLevel = "1";
                     invType = "1";
                 }
                 else if (Sk2V == skill2Version.V2)
                 {
-                    itemDescription = "First Evolution of skill 2";
-                    itemPrice = "2500";
+                    itemDescription = "Life Regen - Level 2: This\nskill heals 180HP of the player's life";
+                    itemPrice = "2000";
                     skillLevel = "2";
                     invType = "1";
                 }
                 else if (Sk2V == skill2Version.V3)
                 {
-                    itemDescription = "Final Evolution of skill 2";
-                    itemPrice = "3000";
+                    itemDescription = "Life Regen - Level 3: This\nskill heals 250HP of the player's life";
+                    itemPrice = "2400";
                     skillLevel = "3";
                     invType = "1";
                 }
                 else if (Sk2V == skill2Version.VF)
                 {
-                    itemDescription = "Final Evolution of skill 2";
-                    itemPrice = "3000";
+                    itemDescription = "This skill is totally completed";
+                    itemPrice = "2400";
                     skillLevel = "4";
                     invType = "1";
                 }
@@ -276,67 +279,67 @@ public class inventoryMain : MonoBehaviour
                 itemName = name;
                 if (Sk3V == skill3Version.V1)
                 {
-                    itemDescription = "Description of skill 3";
-                    itemPrice = "3000";
+                    itemDescription = "Ultimate Tricky - Level 1:\nThis skill deals automatically 100HP damage on the enemy player";
+                    itemPrice = "2000";
                     skillLevel = "1";
                     invType = "1";
                 }
                 else if (Sk3V == skill3Version.V2)
                 {
-                    itemDescription = "First Evolution of skill 3";
-                    itemPrice = "3500";
+                    itemDescription = "Ultimate Tricky - Level 2:\nThis skill deals automatically 150HP damage on the enemy player";
+                    itemPrice = "2800";
                     skillLevel = "2";
                     invType = "1";
                 }
                 else if (Sk3V == skill3Version.V3)
                 {
-                    itemDescription = "Final Evolution of skill 3";
-                    itemPrice = "4000";
+                    itemDescription = "Ultimate Tricky - Level 3:\nThis skill deals automatically 180HP damage on the enemy player";
+                    itemPrice = "3300";
                     skillLevel = "3";
                     invType = "1";
                 }
                 else if (Sk3V == skill3Version.VF)
                 {
-                    itemDescription = "Final Evolution of skill 3";
-                    itemPrice = "4000";
+                    itemDescription = "This skill is totally completed";
+                    itemPrice = "3300";
                     skillLevel = "4";
                     invType = "1";
                 }
                 break;
             case "Equipment1":
                 itemName = name;
-                itemDescription = "Description of equipment 1";
+                itemDescription = "Cool Breaker:\nThis equipment reduces the cooldown of the skills by 10 seconds";
                 itemPrice = "1000";
                 invType = "0";
                 break;
             case "Equipment2":
                 itemName = name;
-                itemDescription = "Description of equipment 2";
-                itemPrice = "2000";
+                itemDescription = "Wheat Sword:\nThis equipment increases player's base damage by 15%";
+                itemPrice = "1400";
                 invType = "0";
                 break;
             case "Equipment3":
                 itemName = name;
-                itemDescription = "Description of equipment 3";
-                itemPrice = "3000";
+                itemDescription = "Vampire Claw:\nThis equipment activates life steal. The player gains 35% of the damage dealt";
+                itemPrice = "2000";
                 invType = "0";
                 break;
             case "Equipment4":
                 itemName = name;
-                itemDescription = "Description of equipment 4";
-                itemPrice = "4000";
+                itemDescription = "ISEL Armour:\nThis equipment increases player's resistence by 15";
+                itemPrice = "2500";
                 invType = "0";
                 break;
             case "Equipment5":
                 itemName = name;
-                itemDescription = "Description of equipment 5";
-                itemPrice = "5000";
+                itemDescription = "Matrioska Sword:\nThis equipment increases player's base damage by 30%";
+                itemPrice = "2800";
                 invType = "0";
                 break;
             case "Equipment6":
                 itemName = name;
-                itemDescription = "Description of equipment 6";
-                itemPrice = "6000";
+                itemDescription = "Lamb Potion:\nThis equipment increases player's max health by 20% and the player's health by half the value added to the max health";
+                itemPrice = "3000";
                 invType = "0";
                 break;
         }
@@ -351,8 +354,9 @@ public class inventoryMain : MonoBehaviour
     public void OpenInventory()
     {
         gameObject.SetActive(true);
+        quitMenu.SetActive(false);
+        SFX.setExitMenu(false);
         isOpen = true;
-        
     }
 
     public void CloseInventory()
@@ -362,6 +366,7 @@ public class inventoryMain : MonoBehaviour
     }
 
     public void controllInventory() {
+        
         if (isOpen)
         {
             CloseInventory();
@@ -370,5 +375,10 @@ public class inventoryMain : MonoBehaviour
         {
             OpenInventory();
         }
+    }
+
+    public void setInventoryOpen(bool newState)
+    {
+        isOpen = newState;
     }
 }

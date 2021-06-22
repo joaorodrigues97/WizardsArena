@@ -96,15 +96,5 @@ public class CustomRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         }
     }
 
-    public void StartGame()
-    {
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
-        {
-            PhotonNetwork.CurrentRoom.IsOpen = false;
-
-            Debug.Log("Match is ready to begin");
-
-            PhotonNetwork.LoadLevel("WizardsArenaGame");
-        }
-    }
+    
 }

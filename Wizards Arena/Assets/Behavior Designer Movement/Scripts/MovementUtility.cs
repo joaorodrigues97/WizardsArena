@@ -77,6 +77,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
         // Determines if the targetObject is within sight of the transform. It will set the angle regardless of whether or not the object is within sight
         public static GameObject WithinSight(Transform transform, Vector3 positionOffset, float fieldOfViewAngle, float viewDistance, GameObject targetObject, Vector3 targetOffset, bool usePhysics2D, float angleOffset2D, out float angle, int ignoreLayerMask, bool useTargetBone, HumanBodyBones targetBone)
         {
+            
             if (targetObject == null) {
                 angle = 0;
                 return null;
@@ -108,7 +109,9 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                 } else if (GetComponentForType<Collider>(targetObject) == null && GetComponentForType<Collider2D>(targetObject) == null) {
                     // If the linecast doesn't hit anything then that the target object doesn't have a collider and there is nothing in the way
                     if (targetObject.gameObject.activeSelf)
+                    {
                         return targetObject;
+                    }
                 }
             }
             // return null if the target object is not within sight
