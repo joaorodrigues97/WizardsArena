@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aced88d195fae244ea0d65f85ad46fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dragon: {fileID: 0}
 --- !u!1101 &-5540221540740045406
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -190,8 +191,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 4369074943288497315}
   - {fileID: 6909358027245364398}
-  m_StateMachineBehaviours:
-  - {fileID: 2722942586563921729}
+  m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -301,6 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ffa28573653fa4c9de0c2a825d015a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dragon: {fileID: 0}
 --- !u!1101 &3640558811788329151
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -448,8 +449,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 3830025828303017765}
   - {fileID: 3640558811788329151}
-  m_StateMachineBehaviours:
-  - {fileID: -6414435121235065993}
+  m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
